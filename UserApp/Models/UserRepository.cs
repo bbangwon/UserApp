@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using UserApp.Data;
+﻿using UserApp.Data;
 
 namespace UserApp.Models
 {

@@ -35,7 +35,9 @@ namespace UserApp.Controllers
         {
             if(ModelState.IsValid)
             {
-                this.userRepository.AddUser(model.UserId!, model.Password!);
+                this.userRepository.AddUser(
+                    model.UserId!, 
+                    CryptoEngine.EncryptPassword(model.Password!));
                 return RedirectToAction(nameof(Index));
             }
 
@@ -63,7 +65,9 @@ namespace UserApp.Controllers
                     return View(model);
                 }
                 
-                if(userRepository.IsCorrectUser(model.UserId!, model.Password!))
+                if(userRepository.IsCorrectUser(
+                    model.UserId!,
+                    CryptoEngine.EncryptPassword(model.Password!)))
                 {
                     //인증 부여
                     var claims = new List<Claim>()
@@ -71,7 +75,7 @@ namespace UserApp.Controllers
                         new Claim("UserId", model.UserId!)
                     };
 
-                    var ci = new ClaimsIdentity(claims, model.Password);
+                    var ci = new ClaimsIdentity(claims, CryptoEngine.EncryptPassword(model.Password));
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(ci));
                     return LocalRedirect("/User/Index");
                 }

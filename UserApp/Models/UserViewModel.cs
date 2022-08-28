@@ -13,7 +13,7 @@ namespace UserApp.Models
 
         [Display(Name = "암호")]
         [Required(ErrorMessage = "암호를 입력하세요")]
-        [StringLength(20, MinimumLength = 6, ErrorMessage = "비밀번호는 6자 이상 20자 이하로 입력하세요.")]
+        [StringLength(255, MinimumLength = 6, ErrorMessage = "비밀번호는 6자 이상 20자 이하로 입력하세요.")]
         public string Password { get; set; } = string.Empty;
     }
 }
