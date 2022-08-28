@@ -1,0 +1,11 @@
+﻿<h1>메인 페이지</h1>
+
+@if(User.Identity?.IsAuthenticated ?? false)
+{
+	<span>@User.FindFirst("UserId")?.Value 님 반갑습니다.</span>
+	<a asp-action="Logout" asp-route-returnUrl="/Home/Index">로그아웃</a>
+}
+else
+{
+	<a asp-action="Login">로그인</a>
+}
